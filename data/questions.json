@@ -1,0 +1,26 @@
+{
+  "truths": [
+    {"id": 1, "text": "What's your most embarrassing moment?", "intensity": "mild", "category": "general"},
+    {"id": 2, "text": "Have you ever lied to your friends about something important?", "intensity": "medium", "category": "friendship"},
+    {"id": 3, "text": "What's something you've done that you think nobody knows about?", "intensity": "hot", "category": "secrets"},
+    {"id": 4, "text": "Who do you have a crush on right now?", "intensity": "hot", "category": "romance"},
+    {"id": 5, "text": "What's the strangest dream you've ever had?", "intensity": "mild", "category": "general"},
+    {"id": 6, "text": "When was the last time you cried?", "intensity": "medium", "category": "emotions"},
+    {"id": 7, "text": "What's the worst advice you've ever given?", "intensity": "mild", "category": "general"},
+    {"id": 8, "text": "Have you ever cheated on a test?", "intensity": "medium", "category": "honesty"},
+    {"id": 9, "text": "What's the most you've ever spent on something pointless?", "intensity": "medium", "category": "money"},
+    {"id": 10, "text": "If you could confess one secret to this group, what would it be?", "intensity": "hot", "category": "secrets"}
+  ],
+  "dares": [
+    {"id": 1, "text": "Do your best impression of someone in this room.", "intensity": "mild", "category": "performance", "duration": 30},
+    {"id": 2, "text": "Call someone and sing 'Happy Birthday' to them.", "intensity": "medium", "category": "phone", "duration": 60},
+    {"id": 3, "text": "Do 20 push-ups while making funny faces.", "intensity": "medium", "category": "physical", "duration": 45},
+    {"id": 4, "text": "Send a funny text to your crush.", "intensity": "hot", "category": "romance", "duration": 60},
+    {"id": 5, "text": "Act like an animal for 30 seconds.", "intensity": "mild", "category": "performance", "duration": 30},
+    {"id": 6, "text": "Dance to a song without music.", "intensity": "medium", "category": "performance", "duration": 30},
+    {"id": 7, "text": "Speak with an accent for the next 5 turns.", "intensity": "medium", "category": "challenge", "duration": 0},
+    {"id": 8, "text": "Text your mom/dad a meme.", "intensity": "mild", "category": "social", "duration": 60},
+    {"id": 9, "text": "Do the macarena in the middle of the room.", "intensity": "medium", "category": "performance", "duration": 45},
+    {"id": 10, "text": "Compliment everyone in this room on something specific.", "intensity": "mild", "category": "social", "duration": 30}
+  ]
+}
