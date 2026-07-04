@@ -1,19 +1,56 @@
 'use client'
 
-import Link from 'next/link'
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { signInWithEmail, signInWithGoogle } from '@/services/auth'
 import { motion } from 'framer-motion'
+import Link from 'next/link'
+import { soundManager } from '@/services/sound'
+import toast from 'react-hot-toast'
 
 export default function SignIn() {
+  const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
 
-  const handleSignIn = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    soundManager.play('click')
+
+    if (!email || !password) {
+      toast.error('Please fill in all fields')
+      return
+    }
+
     setLoading(true)
-    // Firebase sign-in logic will go here
-    setTimeout(() => setLoading(false), 1000)
+    try {
+      await signInWithEmail(email, password)
+      soundManager.play('success')
+      toast.success('Signed in successfully!')
+      setTimeout(() => router.push('/rooms'), 1500)
+    } catch (error: any) {
+      soundManager.play('error')
+      toast.error(error.message || 'Sign in failed')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleGoogleSignIn = async () => {
+    soundManager.play('click')
+    setLoading(true)
+    try {
+      await signInWithGoogle()
+      soundManager.play('success')
+      toast.success('Signed in with Google!')
+      setTimeout(() => router.push('/rooms'), 1500)
+    } catch (error: any) {
+      soundManager.play('error')
+      toast.error(error.message || 'Google sign in failed')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -24,12 +61,10 @@ export default function SignIn() {
         className="w-full max-w-md"
       >
         <div className="glass p-8 rounded-2xl">
-          <h1 className="text-3xl font-bold mb-2 text-center">
-            Welcome Back
-          </h1>
+          <h1 className="text-3xl font-bold mb-2 text-center">Welcome Back</h1>
           <p className="text-gray-400 text-center mb-8">Sign in to your account</p>
 
-          <form onSubmit={handleSignIn} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-sm font-medium mb-2">Email</label>
               <input
@@ -37,7 +72,7 @@ export default function SignIn() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="your@email.com"
-                className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:border-cyan-400"
+                className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:border-cyan-400 text-white placeholder-gray-500"
               />
             </div>
 
@@ -48,7 +83,7 @@ export default function SignIn() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:border-cyan-400"
+                className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:border-cyan-400 text-white placeholder-gray-500"
               />
             </div>
 
@@ -70,11 +105,15 @@ export default function SignIn() {
             </div>
           </div>
 
-          <button className="w-full bg-white/10 border border-white/20 rounded-lg py-3 font-semibold hover:bg-white/20 transition-all mb-4">
+          <button
+            onClick={handleGoogleSignIn}
+            disabled={loading}
+            className="w-full bg-white/10 border border-white/20 rounded-lg py-3 font-semibold hover:bg-white/20 transition-all disabled:opacity-50"
+          >
             🔵 Google
           </button>
 
-          <p className="text-center text-gray-400 text-sm">
+          <p className="text-center text-gray-400 text-sm mt-6">
             Don't have an account?{' '}
             <Link href="/auth/signup" className="text-cyan-400 hover:text-cyan-300">
               Sign up

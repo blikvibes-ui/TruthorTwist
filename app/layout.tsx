@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import { Toaster } from 'react-hot-toast'
+import Providers from './providers'
 
 export const metadata: Metadata = {
   title: 'TruthOrTwist - Truth or Dare Online',
@@ -15,10 +16,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-gradient-dark text-white font-sans">
-        <div className="min-h-screen">
-          {children}
-        </div>
-        <Toaster position="bottom-center" />
+        <Providers>
+          <div className="min-h-screen">
+            {children}
+          </div>
+          <Toaster position="bottom-center" />
+        </Providers>
       </body>
     </html>
   )
