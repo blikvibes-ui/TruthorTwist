@@ -1,7 +1,7 @@
 import { initializeApp } from 'firebase/app'
 import { getAuth } from 'firebase/auth'
-import { getFirestore } from 'firebase/firestore'
-import { getDatabase } from 'firebase/database'
+import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore'
+import { getDatabase, connectDatabaseEmulator } from 'firebase/database'
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -16,3 +16,14 @@ const app = initializeApp(firebaseConfig)
 export const auth = getAuth(app)
 export const db = getFirestore(app)
 export const realtimeDb = getDatabase(app)
+
+// Optional: Connect to emulators for local development
+// Uncomment these lines to use Firebase emulators locally
+// if (process.env.NODE_ENV === 'development' && typeof window !== 'undefined') {
+//   try {
+//     connectFirestoreEmulator(db, 'localhost', 8080)
+//     connectDatabaseEmulator(realtimeDb, 'localhost', 9000)
+//   } catch (e) {
+//     // Emulator already connected
+//   }
+// }
